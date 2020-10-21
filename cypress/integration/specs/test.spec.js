@@ -1,60 +1,81 @@
+import {
+    getFormApp,
+    getSelectItemFour,
+    getSelectItemOne,
+    getSelectItemThree,
+    getSelectItemTwo,
+    getFormFields,
+    getCurrentPrice, getFormCheckbox, getDiscountInfo, getOldPrice, getDiscountSize
+} from '../../support/utils'
+
 describe('test cool.club', () => {
 
     before(() => {
-        cy.visit('https://unipapers.org/')
-        cy.get('.card-shadow').should('be.visible')
+        cy.visit('/')
+        getFormApp().should('be.visible')
+
+        getFormFields()
+            .should('have.length', 4)
     })
 
     it('Check price for old customer', () => {
-        cy.get('.introCalculatorFormGroups > :nth-child(1) > .sod_select', )
-            .click()
-            .contains('Essay').click({force: true})
-        cy.get('.introCalculatorFormGroups > :nth-child(2) > .sod_select', )
-            .click()
-            .contains('College').click({force: true})
-        cy.get('.introCalculatorFormGroups > :nth-child(3) > .sod_select', )
-            .click()
-            .contains('14 days').click({force: true})
-        cy.get('.introCalculatorFormGroups > :nth-child(4) > .sod_select', )
-            .click()
-            .contains('1 pages / 275 words').click({force: true})
-        cy.get('.discount-right .current-price')
+
+        getSelectItemOne('Essay')
+            .click({force: true})
+
+        getSelectItemTwo('College')
+            .click({force: true})
+
+        getSelectItemThree('14 days')
+            .click({force: true})
+
+        getSelectItemFour('1 pages / 275 words')
+            .click({force: true})
+
+        getCurrentPrice()
             .should(($price) => {
                 expect($price).to.have.text('$13.00')
             })
-        cy.get('#new-customer-discount-input')
+
+        getFormCheckbox()
             .should('not.be.checked')
-        cy.get('.discount-info')
+
+        getDiscountInfo()
             .should('not.be.visible')
     })
 
     it('Check price for new customer', () => {
-        cy.get('.introCalculatorFormGroups > :nth-child(1) > .sod_select', )
-            .click()
-            .contains('Editing').click({force: true})
-        cy.get('.introCalculatorFormGroups > :nth-child(2) > .sod_select', )
-            .click()
-            .contains('Proofreading').click({force: true})
-        cy.get('.introCalculatorFormGroups > :nth-child(3) > .sod_select', )
-            .click()
-            .contains('7 days').click({force: true})
-        cy.get('.introCalculatorFormGroups > :nth-child(4) > .sod_select', )
-            .click()
-            .contains('7 pages / 1925 words').click({force: true})
-        cy.get('#new-customer-discount-input').as('checkBtn')
-        cy.get('@checkBtn').click( {force: true})
+
+        getSelectItemOne('Editing')
+            .click({force: true})
+
+        getSelectItemTwo('Proofreading')
+            .click({force: true})
+
+        getSelectItemThree('7 days')
+            .click({force: true})
+
+        getSelectItemFour('7 pages / 1925 words')
+            .click({force: true})
+
+        getFormCheckbox()
+            .click( {force: true})
             .should('be.checked')
-        cy.get('.discount-right .current-price')
+
+        getCurrentPrice()
             .should(($current) => {
                 expect($current).to.have.text('$47.60')
             })
-        cy.get('.discount-info')
+
+        getDiscountInfo()
             .should('be.visible')
-        cy.get('.discount-size')
+
+        getDiscountSize()
             .should(($discount) => {
                 expect($discount).to.have.text('15% OFF')
             })
-        cy.get('.old-price')
+
+        getOldPrice()
             .should(($old) => {
                 expect($old).to.have.text('$56.00')
             })
