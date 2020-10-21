@@ -1,19 +1,5 @@
-# JS-Mocha-WebdriverIO-Selenium
+# JS-Cypress
 
-##START STANDALONE
-yarn postinstall
+#Start cypress test
 
-### START SELENIUM
-yarn selenium
-
-### START ALL TEST (in new terminal)
-yarn test
-
-### START A TEST SUITE (you can find all suites in wdio.conf.js)
-yarn test -- --suite common
-
-## Clear data last test
-yarn pretests
-
-## Create new report (after running the tests)
-yarn report
+./node_modules/.bin/cypress open
