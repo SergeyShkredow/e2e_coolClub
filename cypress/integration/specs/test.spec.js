@@ -1,0 +1,62 @@
+describe('test cool.club', () => {
+
+    before(() => {
+        cy.visit('https://unipapers.org/')
+        cy.get('.card-shadow').should('be.visible')
+    })
+
+    it('Check price for old customer', () => {
+        cy.get('.introCalculatorFormGroups > :nth-child(1) > .sod_select', )
+            .click()
+            .contains('Essay').click({force: true})
+        cy.get('.introCalculatorFormGroups > :nth-child(2) > .sod_select', )
+            .click()
+            .contains('College').click({force: true})
+        cy.get('.introCalculatorFormGroups > :nth-child(3) > .sod_select', )
+            .click()
+            .contains('14 days').click({force: true})
+        cy.get('.introCalculatorFormGroups > :nth-child(4) > .sod_select', )
+            .click()
+            .contains('1 pages / 275 words').click({force: true})
+        cy.get('.discount-right .current-price')
+            .should(($price) => {
+                expect($price).to.have.text('$13.00')
+            })
+        cy.get('#new-customer-discount-input')
+            .should('not.be.checked')
+        cy.get('.discount-info')
+            .should('not.be.visible')
+    })
+
+    it('Check price for new customer', () => {
+        cy.get('.introCalculatorFormGroups > :nth-child(1) > .sod_select', )
+            .click()
+            .contains('Editing').click({force: true})
+        cy.get('.introCalculatorFormGroups > :nth-child(2) > .sod_select', )
+            .click()
+            .contains('Proofreading').click({force: true})
+        cy.get('.introCalculatorFormGroups > :nth-child(3) > .sod_select', )
+            .click()
+            .contains('7 days').click({force: true})
+        cy.get('.introCalculatorFormGroups > :nth-child(4) > .sod_select', )
+            .click()
+            .contains('7 pages / 1925 words').click({force: true})
+        cy.get('#new-customer-discount-input').as('checkBtn')
+        cy.get('@checkBtn').click( {force: true})
+            .should('be.checked')
+        cy.get('.discount-right .current-price')
+            .should(($current) => {
+                expect($current).to.have.text('$47.60')
+            })
+        cy.get('.discount-info')
+            .should('be.visible')
+        cy.get('.discount-size')
+            .should(($discount) => {
+                expect($discount).to.have.text('15% OFF')
+            })
+        cy.get('.old-price')
+            .should(($old) => {
+                expect($old).to.have.text('$56.00')
+            })
+    })
+})

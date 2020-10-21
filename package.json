@@ -4,7 +4,8 @@
   "description": "##START STANDALONE yarn postinstall",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run:test": "./node_modules/.bin/cypress open"
   },
   "author": "",
   "license": "ISC",
