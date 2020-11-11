@@ -8,7 +8,7 @@ const FORM_SELECT_ITEM_ONE = '.introCalculatorFormGroups > :nth-child(1) > .sod_
 const FORM_SELECT_ITEM_TWO = '.introCalculatorFormGroups > :nth-child(2) > .sod_select'
 const FORM_SELECT_ITEM_THREE = '.introCalculatorFormGroups > :nth-child(3) > .sod_select'
 const FORM_SELECT_ITEM_FOUR = '.introCalculatorFormGroups > :nth-child(4) > .sod_select'
-const FORM_SELECT_ITEM_FOUR1 = '.introCalculatorFormGroups > :nth-child(4) > .sod_select'
+const FORM_SELECT_ITEM_FOUR1 = '.introCalculatorFormGroups > :nth-child(4) > .sod_selectssss'
 
 
 export const getSelectItemOne = (text) => cy.get(FORM_SELECT_ITEM_ONE).contains(text)
